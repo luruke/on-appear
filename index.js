@@ -44,7 +44,7 @@ OnAppear.prototype.check = function() {
   }
 
   this.destroy();
-  window.setTimeout(this.vars.callback, this.vars.delay);
+  window.setTimeout(this.vars.callback.bind(this), this.vars.delay);
 };
 
 module.exports = OnAppear;
