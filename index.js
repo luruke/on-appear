@@ -34,7 +34,7 @@ OnAppear.prototype.destroy = function() {
 };
 
 OnAppear.prototype.isInViewport = function() {
-  const rect = this.el.getBoundingClientRect();
+  var rect = this.el.getBoundingClientRect();
   return rect.top + rect.height > 0 && (rect.top - this.vars.offset) < window.innerHeight;
 };
 
