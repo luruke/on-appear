@@ -47,4 +47,28 @@ OnAppear.prototype.check = function() {
   window.setTimeout(this.vars.callback.bind(this), this.vars.delay);
 };
 
-module.exports = OnAppear;
+
+var OnAppearObserver = function(el, opts) {
+  this.el = el;
+  this.vars = OnAppear.prototype.extend({
+    delay: 0, // ms of delay for the callback
+    offset: 0, // px of offset
+    callback: function(){}
+  }, opts);
+
+  var _this = this;
+  this._done = false;
+
+  var observer = new IntersectionObserver(function(entries, observer) {
+    console.log('enter');
+    window.setTimeout(_this.vars.callback.bind(_this), _this.vars.delay);
+    _this.done = true;
+    observer.disconnect();
+  });
+
+  observer.observe(el);
+};
+
+module.exports = (function() {
+  return typeof IntersectionObserver === 'function' ? OnAppearObserver : OnAppear;
+})();
